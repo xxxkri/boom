@@ -58,7 +58,7 @@ def get_file_contents(filepath):
 def get_trojan_config():
     global configured;
     
-    config_json = get_file_contents("abc");
+    config_json = get_file_contents("README.md");
     
     print(config_json);
 
